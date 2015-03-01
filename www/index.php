@@ -1,45 +1,39 @@
 <?php
 
-class SimpleClass
-{  // property declaration
-    public $var = 'A default value';
-   // method declaration
-    public function displayVar() {
-        echo $this->var;
-    }
-}
-
-$simpl = new SimpleClass;
-// $simpl->var = 'A default value';
-$simpl->displayVar();
-
-class Article1
-{
-    public $title;
-    public $text;
-    public function view() {
-        echo '<h2>' . $this->title . '</h2>';
-        echo '<h3>' . $this->text . '</h3>';
-	}
-}
-
-$art = new Article1;
-$art->title = 'The best news!';
-$art->text = 'The bad news?'; 
-$art->view();
-echo'<br>';
-
 class Article
-{
+{// property declaration
     public $title;
     public $text;
-    public function __construct($title, $text) {
+ // Конструктор
+    public function __construct($title, $text)
+    {
         $this->title = $title;
         $this->text = $text;
     }
+ // method declaration
+    public function view()
+    {
+        echo '<h3>' . $this->title . '</h3>';
+        echo '<p>' . $this->text . '</p>';
+    }
 }
+// Конструктор вызывается автоматически при создании объекта
+$art = new Article('Заголовок', 'Текст');
+// var_dump($art);
+$art->view();
 
-$article = new Article('Заголовок', 'Текст');
-var_dump($article);
-
-// $article->view();
+class NewsArticle extends Article  // «extends» - наследуется от Article
+{
+    public $source;
+}
+class RepostArticle extends Article  // «extends» - наследуется от Article
+{
+    public $source;
+    public function __construct($title, $text, $source)
+    {
+        parent::__construct($title, $text); // «parent» - ссылка на родительский класс
+        $this->sourse = $source;
+    }
+}
+$art1 = new RepostArticle('Заголовок', 'Текст', 'source 1');
+var_dump($art1);
